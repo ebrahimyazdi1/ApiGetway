@@ -57,7 +57,18 @@ namespace ApiGetway
                 // opt.InjectStylesheet("/swagger-ui/swagger-ui.css");
             });
             app.UseStaticFiles();
-            app.UseOcelot(OcelotPipelineConfigurationBuilder.GetOcelotPipelineConfiguration()).Wait();
+            try
+            {
+
+              
+ 
+                 app.UseOcelot(OcelotPipelineConfigurationBuilder.GetOcelotPipelineConfiguration());
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
             app.UseIdentityServer();
             app.Map("/identity", idsrvApp =>
             {
