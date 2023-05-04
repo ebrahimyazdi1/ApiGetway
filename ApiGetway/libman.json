@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "script.js@2.5.9",
+      "destination": "wwwroot/script.js/"
+    },
+    {
+      "library": "swagger-ui@4.18.3",
+      "destination": "wwwroot/swagger-ui/"
+    }
+  ]
+}
