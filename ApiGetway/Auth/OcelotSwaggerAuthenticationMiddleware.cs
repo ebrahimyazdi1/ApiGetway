@@ -24,15 +24,15 @@ namespace Gss.ApiGateway.Auth
                 return;
             }
 
-            var authResult = await httpContext.AuthenticateAsync(GssBasicAuthenticationHandler.SchemeName);
-            if (authResult.Succeeded)
-            {
+            //var authResult = await httpContext.AuthenticateAsync(GssBasicAuthenticationHandler.SchemeName);
+            //if (authResult.Succeeded)
+            //{
                 await _next(httpContext);
-            }
-            else
-            {
-                throw new OcelotSwaggerUnauthorizedException(true);
-            }
+            //}
+            //else
+            //{
+            //    throw new OcelotSwaggerUnauthorizedException(true);
+            //}
         }
     }
 
