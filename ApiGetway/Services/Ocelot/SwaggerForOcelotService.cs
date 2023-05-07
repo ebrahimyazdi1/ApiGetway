@@ -39,7 +39,7 @@ namespace Gss.ApiGateway.Services.Ocelot
 
             var routeAsString = JsonConvert.SerializeObject(result);
             var listOfOptions = (List<SwaggerEndPointOptions>)JsonConvert.DeserializeObject<List<SwaggerEndPointOptions>>(routeAsString);
-            listOfOptions.Insert(0, new SwaggerEndPointOptions { Key = "", Config = new List<SwaggerEndPointConfig> { new SwaggerEndPointConfig { } } });
+            listOfOptions.Insert(1, new SwaggerEndPointOptions { Key = "", Config = new List<SwaggerEndPointConfig> { new SwaggerEndPointConfig { } } });
 
             return listOfOptions;
         }

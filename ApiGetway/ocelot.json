@@ -1,0 +1,132 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Sell/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5058
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Sell/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST"
+      ],
+      "SwaggerKey": "coin"
+    },
+    {
+      "DownstreamPathTemplate": "/IS/api/v1/Delivery/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5058
+        }
+      ],
+      "UpstreamPathTemplate": "/IS/api/v1/Delivery/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST"
+      ],
+      "SwaggerKey": "coin"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Accounting/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Accounting/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST"
+      ],
+      "SwaggerKey": "accounting"
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Ticket/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7006
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Ticket/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "GET"
+      ],
+
+      "SwaggerKey": "ticketing"
+    },
+    {
+      "DownstreamPathTemplate": "/USR/api/v1/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7004
+        }
+      ],
+      "UpstreamPathTemplate": "/USR/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "GET"
+      ],
+
+      "SwaggerKey": "userManagement"
+    }
+
+
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "coin",
+      "Config": [
+        {
+          "Name": "coin API",
+          "Version": "v1",
+          "Url": "http://localhost:5058/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "accounting",
+      "Config": [
+        {
+          "Name": "Accounting API",
+          "Version": "v1",
+          "Url": "http://localhost:7001/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "userManagement",
+      "Config": [
+        {
+          "Name": "UserManagement API",
+          "Version": "v1",
+          "Url": "http://localhost:7004/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "ticketing",
+      "Config": [
+        {
+          "Name": "Ticketing API",
+          "Version": "v1",
+          "Url": "http://localhost:7006/swagger/v1/swagger.json"
+        }
+      ]
+    }   
+
+  ]
+}
