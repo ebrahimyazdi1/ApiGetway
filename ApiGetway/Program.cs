@@ -1,21 +1,5 @@
-using ApiGetway.Infrastructure.IdentityServer;
-using Gss.ApiGateway.Auth;
-using Gss.ApiGateway.Data;
-using Gss.ApiGateway.Extensions;
-using Gss.ApiGateway.Infrastructure;
 using Gss.ApiGateway.Infrastructure.Ocelot;
-using Gss.ApiGateway.Infrastructure.Ocelot.SqlServerProvider;
-using Gss.ApiGateway.Infrastructure.SwaggerForOcelot;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
-using Microsoft.IdentityModel.Tokens;
-using Ocelot.Authorization;
 using Ocelot.DependencyInjection;
-using Ocelot.Infrastructure.RequestData;
 using Ocelot.Middleware;
 using Ocelot.Values;
 
@@ -27,46 +11,51 @@ namespace ApiGetway
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true).AddEnvironmentVariables();
+            builder.Configuration.AddJsonFile("appsettings.json")
+                .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true).AddEnvironmentVariables();
+            builder.Services.AddMvcCore().AddApiExplorer();
+            // Add rate limiting services
+            //builder.Services.AddMemoryCache();
+            //builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("RateLimitOptions"));
+            //builder.Services.Configure<IpRateLimitPolicies>(builder.Configuration.GetSection("IpRateLimitPolicies"));
+            //builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            //builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            //builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            //builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
+            builder.Services.AddLogging(b =>
+            {
+                b.AddConsole();
+            });
             builder.Services.AddOcelot(builder.Configuration);
             builder.Services.AddSwaggerForOcelot(builder.Configuration);
-            builder.Services.AddMvcCore().AddApiExplorer();
-            //Action<JwtBearerOptions> options = o =>
-            //{
-            //    o.Authority = builder.Configuration["OAuth:Authority"];
-            //    o.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateAudience = false,
-            //        ValidateLifetime = true,
-            //        ValidateIssuer = true,
-            //        ValidIssuer = builder.Configuration["OAuth:Authority"],
-
-            //    };
-            //    o.Events = new JwtBearerEvents
-            //    {
-            //        OnAuthenticationFailed = (x) =>
-            //        {
-            //            var requestScopedDataRepository = x.HttpContext.RequestServices.GetRequiredService<IRequestScopedDataRepository>();
-            //            requestScopedDataRepository.AddError(new UnauthorizedError("Unauthorized request to oauth provider"));
-            //            return Task.CompletedTask;
-            //        }
-            //    };
-            //};
-
-            //builder.Services.AddAuthentication()
-            //    .AddJwtBearer("OAuthJwtBearer", options);
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
             //builder.Services.AddAuthentication();
             //builder.Services.AddAuthorization();
             var app = builder.Build();
-            app.UseAuthentication();
-            app.UseAuthorization();
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            //app.UseIpRateLimiting();
+            //app.UseClientRateLimiting();
             app.UseStaticFiles();
             app.UseSwaggerForOcelotUI(opt =>
             {
                 opt.PathToSwaggerGenerator = "/swagger/docs";
                 // opt.InjectStylesheet("/swagger-ui/swagger-ui.css");
             });
-            app.UseOcelot(OcelotPipelineConfigurationBuilder.GetOcelotPipelineConfiguration());
+            //var ocelotConfig = app.Services.GetService<IConfiguration>().GetSection("GlobalConfiguration:RateLimitOptions").AsEnumerable() ;
+            //  var test =  ocelotConfig?.GetChildren()?.AsEnumerable() ;
+
+            app.UseOcelot().Wait();
+            //app.UseOcelot(OcelotPipelineConfigurationBuilder.GetOcelotPipelineConfiguration()).Wait();
             app.Run();
         }
     }
