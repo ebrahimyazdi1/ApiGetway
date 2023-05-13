@@ -30,11 +30,9 @@ namespace ApiGetway
             builder.Services.AddSwaggerForOcelot(builder.Configuration);
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
+                options.AddPolicy("GatewayCorsPolicy", builder => {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
             });
             //builder.Services.AddAuthentication();
             //builder.Services.AddAuthorization();
@@ -53,7 +51,7 @@ namespace ApiGetway
             });
             //var ocelotConfig = app.Services.GetService<IConfiguration>().GetSection("GlobalConfiguration:RateLimitOptions").AsEnumerable() ;
             //  var test =  ocelotConfig?.GetChildren()?.AsEnumerable() ;
-
+            app.UseCors("GatewayCorsPolicy");
             app.UseOcelot().Wait();
             //app.UseOcelot(OcelotPipelineConfigurationBuilder.GetOcelotPipelineConfiguration()).Wait();
             app.Run();

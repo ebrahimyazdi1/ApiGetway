@@ -86,6 +86,15 @@
 
 
   ],
+  //"GlobalConfiguration": {
+  //  "CorsOptions": {
+  //    "PolicyName": "GatewayCorsPolicy",
+  //    "AllowOrigins": [ "*" ],
+  //    "AllowHeaders": [ "Content-Type", "Authorization" ],
+  //    "AllowMethods": [ "GET", "POST", "PUT", "DELETE" ],
+  //    "SupportsCredentials": true
+  //  }
+  //},
   "SwaggerEndPoints": [
     {
       "Key": "coin",
@@ -126,7 +135,7 @@
           "Url": "http://localhost:7006/swagger/v1/swagger.json"
         }
       ]
-    }   
+    }
 
   ]
 }
