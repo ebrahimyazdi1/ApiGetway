@@ -1,4 +1,6 @@
+using AspNetCoreRateLimit;
 using Gss.ApiGateway.Infrastructure.Ocelot;
+using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Values;
@@ -16,7 +18,7 @@ namespace ApiGetway
             builder.Services.AddMvcCore().AddApiExplorer();
             // Add rate limiting services
             //builder.Services.AddMemoryCache();
-            //builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("RateLimitOptions"));
+            builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("RateLimitOptions"));
             //builder.Services.Configure<IpRateLimitPolicies>(builder.Configuration.GetSection("IpRateLimitPolicies"));
             //builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
             //builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
@@ -26,7 +28,7 @@ namespace ApiGetway
             {
                 b.AddConsole();
             });
-            builder.Services.AddOcelot(builder.Configuration);
+            builder.Services.AddOcelot(builder.Configuration).AddCacheManager(c=>c.WithDictionaryHandle());
             builder.Services.AddSwaggerForOcelot(builder.Configuration);
             builder.Services.AddCors(options =>
             {
@@ -52,8 +54,8 @@ namespace ApiGetway
             //var ocelotConfig = app.Services.GetService<IConfiguration>().GetSection("GlobalConfiguration:RateLimitOptions").AsEnumerable() ;
             //  var test =  ocelotConfig?.GetChildren()?.AsEnumerable() ;
             app.UseCors("GatewayCorsPolicy");
-            app.UseOcelot().Wait();
-            //app.UseOcelot(OcelotPipelineConfigurationBuilder.GetOcelotPipelineConfiguration()).Wait();
+            //app.UseOcelot().Wait();
+            app.UseOcelot(OcelotPipelineConfigurationBuilder.GetOcelotPipelineConfiguration()).Wait();
             app.Run();
         }
     }

@@ -76,6 +76,21 @@
         }
       ],
       "UpstreamPathTemplate": "/USR/api/v1/{everything}",
+      "LoadBalancerOptions": {
+        "Type": "CookieStickySessions",
+        "Key": "ASP.NET_SessionId",
+        "Expiry": 1800000
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 15,
+        "Region": "somename"
+      },
+      "RateLimitOptions": {
+        "DisableRateLimitHeaders": false,
+        "QuotaExceededMessage": "Customize Tips!",
+        "HttpStatusCode": 999,
+        "ClientIdHeader": "Test"
+      },
       "UpstreamHttpMethod": [
         "POST",
         "GET"
@@ -93,7 +108,8 @@
   //    "AllowHeaders": [ "Content-Type", "Authorization" ],
   //    "AllowMethods": [ "GET", "POST", "PUT", "DELETE" ],
   //    "SupportsCredentials": true
-  //  }
+  //  },
+  //  "file"
   //},
   "SwaggerEndPoints": [
     {
