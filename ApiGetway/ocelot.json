@@ -71,7 +71,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "192.168.30.115",
           "Port": 7004
         }
       ],
@@ -82,6 +82,23 @@
       ],
 
       "SwaggerKey": "userManagement"
+    },
+    {
+      "DownstreamPathTemplate": "/USR/api/v1/DBLog/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/USR/api/v1/DBLog/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "GET"
+      ],
+
+      "SwaggerKey": "serviceLog"
     }
 
 
@@ -126,7 +143,17 @@
           "Url": "http://localhost:7006/swagger/v1/swagger.json"
         }
       ]
-    }   
+    },
+    {
+      "Key": "serviceLog",
+      "Config": [
+        {
+          "Name": "ServiceLog API",
+          "Version": "v1",
+          "Url": "http://localhost:7003/swagger/v1/swagger.json"
+        }
+      ]
+    } 
 
   ]
 }
