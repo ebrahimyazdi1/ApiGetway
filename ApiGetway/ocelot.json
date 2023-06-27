@@ -67,15 +67,15 @@
       "SwaggerKey": "ticketing"
     },
     {
-      "DownstreamPathTemplate": "/USR/api/v1/{everything}",
+      "DownstreamPathTemplate": "/USR/api/v1/UserManagement/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "192.168.30.115",
+          "Host": "localhost",
           "Port": 7004
         }
       ],
-      "UpstreamPathTemplate": "/USR/api/v1/{everything}",
+      "UpstreamPathTemplate": "/USR/api/v1/UserManagement/{everything}",
       "UpstreamHttpMethod": [
         "POST",
         "GET"
