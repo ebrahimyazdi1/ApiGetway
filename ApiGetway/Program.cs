@@ -31,41 +31,19 @@ namespace ApiGetway
             builder.Services.AddOcelot(builder.Configuration);
             builder.Services.AddSwaggerForOcelot(builder.Configuration);
             builder.Services.AddMvcCore().AddApiExplorer();
-            //Action<JwtBearerOptions> options = o =>
-            //{
-            //    o.Authority = builder.Configuration["OAuth:Authority"];
-            //    o.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateAudience = false,
-            //        ValidateLifetime = true,
-            //        ValidateIssuer = true,
-            //        ValidIssuer = builder.Configuration["OAuth:Authority"],
-
-            //    };
-            //    o.Events = new JwtBearerEvents
-            //    {
-            //        OnAuthenticationFailed = (x) =>
-            //        {
-            //            var requestScopedDataRepository = x.HttpContext.RequestServices.GetRequiredService<IRequestScopedDataRepository>();
-            //            requestScopedDataRepository.AddError(new UnauthorizedError("Unauthorized request to oauth provider"));
-            //            return Task.CompletedTask;
-            //        }
-            //    };
-            //};
-
-            //builder.Services.AddAuthentication()
-            //    .AddJwtBearer("OAuthJwtBearer", options);
-            //builder.Services.AddAuthentication();
-            //builder.Services.AddAuthorization();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("GatewayCorsPolicy", builder => {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
             var app = builder.Build();
-            app.UseAuthentication();
-            app.UseAuthorization();
             app.UseStaticFiles();
             app.UseSwaggerForOcelotUI(opt =>
             {
                 opt.PathToSwaggerGenerator = "/swagger/docs";
-                // opt.InjectStylesheet("/swagger-ui/swagger-ui.css");
             });
+            app.UseCors("GatewayCorsPolicy");
             app.UseOcelot(OcelotPipelineConfigurationBuilder.GetOcelotPipelineConfiguration());
             app.Run();
         }
