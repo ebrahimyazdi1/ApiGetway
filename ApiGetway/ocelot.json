@@ -71,7 +71,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "192.168.30.115",
           "Port": 7004
         }
       ],
