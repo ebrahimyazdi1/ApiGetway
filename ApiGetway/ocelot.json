@@ -99,6 +99,40 @@
       ],
 
       "SwaggerKey": "serviceLog"
+    },
+    {
+      "DownstreamPathTemplate": "/Bimeh/v1/SportInsurance/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7009
+        }
+      ],
+      "UpstreamPathTemplate": "/Bimeh/v1/SportInsurance/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "GET"
+      ],
+
+      "SwaggerKey": "sportsInsurance"
+    },
+    {
+      "DownstreamPathTemplate": "/Bimeh/v1/SportEssentialInfo/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7009
+        }
+      ],
+      "UpstreamPathTemplate": "/Bimeh/v1/SportEssentialInfo/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "GET"
+      ],
+
+      "SwaggerKey": "sportsInsurance"
     }
 
 
@@ -153,7 +187,17 @@
           "Url": "http://localhost:7003/swagger/v1/swagger.json"
         }
       ]
-    } 
+    },
+    {
+      "Key": "sportsInsurance",
+      "Config": [
+        {
+          "Name": "sportsInsurance API",
+          "Version": "v1",
+          "Url": "http://localhost:7009/swagger/v1/swagger.json"
+        }
+      ]
+    }
 
   ]
 }
