@@ -117,22 +117,40 @@
 
       "SwaggerKey": "sportsInsurance"
     },
+
     {
-      "DownstreamPathTemplate": "/Bimeh/v1/SportEssentialInfo/{everything}",
+      "DownstreamPathTemplate": "/IS/api/v1/Shahkar/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7009
+          "Port": 7002
         }
       ],
-      "UpstreamPathTemplate": "/Bimeh/v1/SportEssentialInfo/{everything}",
+      "UpstreamPathTemplate": "/IS/api/v1/Shahkar/{everything}",
       "UpstreamHttpMethod": [
         "POST",
         "GET"
       ],
 
-      "SwaggerKey": "sportsInsurance"
+      "SwaggerKey": "infrastructure"
+    },
+    {
+      "DownstreamPathTemplate": "/IS/api/v1/SMS/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7002
+        }
+      ],
+      "UpstreamPathTemplate": "/IS/api/v1/SMS/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "GET"
+      ],
+
+      "SwaggerKey": "infrastructure"
     }
 
 
@@ -197,7 +215,16 @@
           "Url": "http://localhost:7009/swagger/v1/swagger.json"
         }
       ]
+    },
+    {
+      "Key": "infrastructure",
+      "Config": [
+        {
+          "Name": "infrastructure API",
+          "Version": "v1",
+          "Url": "http://localhost:7002/swagger/v1/swagger.json"
+        }
+      ]
     }
-
   ]
 }
