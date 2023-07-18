@@ -117,7 +117,23 @@
 
       "SwaggerKey": "sportsInsurance"
     },
+    {
+      "DownstreamPathTemplate": "/Bimeh/v1/SportEssentialInfo/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7009
+        }
+      ],
+      "UpstreamPathTemplate": "/Bimeh/v1/SportEssentialInfo/{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "GET"
+      ],
 
+      "SwaggerKey": "sportsInsurance"
+    },
     {
       "DownstreamPathTemplate": "/IS/api/v1/Shahkar/{everything}",
       "DownstreamScheme": "http",
